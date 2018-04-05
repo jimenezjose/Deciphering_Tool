@@ -18,29 +18,14 @@ Description: Crack the ciphers on every chapter in the book,
 // "e t a o i n s r h l d c u m f p g w y b v k x j q z" given by 
 // http://letterfrequency.org/. This way we can optimize
 // the number of trials needed in a possible brute force attack.
-#include <stdio.h>
-#include "Ciphers.h"
-#include "UserInput.c"
 
 /*is_[...] 3 states of a character */
 #define IS_SYMBOL 0
 #define IS_ALPHABET  1
 #define IS_NUMBER 2
-#define BUFF_SIZE 1024
-
-/*colorful output*/
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
 
 /*function prototype declarations*/
-void setUp();
 void refresh();
-long askUser(const char *);
 long isSpace(char);
 void charsFrequency();
 void analyzeChars(const char*, long*, long*);
@@ -50,66 +35,6 @@ long shiftCipher( long, const char * );
 
 unsigned long frequency[MAXCHARS] = { 0 }; /*Record frequency of chars*/
 long charsFound[MAXCHARS + OFFSET];/*list of chars found in cipher*/
-
-const int one_letter = 1;
-
-void setUp() {
-  /*refresh charsFound array*/
-  refresh();
-
-  line();
-  fprintf(stdout, "Ghost in The Wires - By: Kevin Mitnick\n");
-  fprintf(stdout, "\nThe following ciphers are given by Mitnick at every");
-  fprintf(stdout, "\nchapter of his book.\n");
-  line();
-
-
-}
-
-int main() {
-  long numOfChars = 0; /*number of character in cipher*/
-  long numOfWords = 0; /*number of words in cipher*/
-  long chapter; /*chapter currently on in loop*/
-  long size; /*elements in array (size)*/
-  long numOfSpaces = 0;
-  const char * cont = "Press Enter to Continue: ";
-  const char * begin = "Press Enter to Begin: ";
-
-  setUp();
-
-  /*ask user to begin execution*/
-  if( askUser(begin) == EOF ) {
-    fprintf(stdout, "\nDone.\n");
-    return 0;
-  }
-
-  size = sizeof(CIPHER) / sizeof(CIPHER[0]);
-  /*print data for ciphers*/
-  for( chapter = 0; chapter < size; chapter++ ) {
-
-    printf("%s\n", TITLE[chapter]);
-    printf(ANSI_COLOR_RED "\"%s\"" ANSI_COLOR_RESET "\n\n", CIPHER[chapter] );
-
-    analyzeChars( CIPHER[chapter], &numOfChars, &numOfWords );
-    numOfSpaces = numOfWords + 1; /*last word has no proceeding space*/
-
-    printf("number of Characters: %ld\n", (numOfChars - numOfSpaces) );
-    printf("number of Words: %ld\n", numOfWords);
-    printf(ANSI_COLOR_BLUE "\nCharacter Frequency Chart:\n" ANSI_COLOR_RESET);
-    charsFrequency();
-    refresh();
-
-    /*continue to scroll with the command of the user*/
-    if ( askUser(cont) == EOF ) {
-      break;
-    }
-
-
-  }
-
-  fprintf(stdout, "\nDone.\n");
-   
-}
 
 /**
  * Function Name: analyzeChars
@@ -127,6 +52,8 @@ void analyzeChars(const char * cipher, long * numOfChars, long * numOfWords) {
   long open_spot; /*index of next open spot in charsFound*/
   long numOfSpaces = 0; /*number of spaces will be used to calc numOfWords*/
   long shift = 0; /*possibly a shift is possible to crack cipher*/
+
+  refresh(); /*0 out charsFound global array*/
 
   while( currentChar != (char)NULL ) {
     /*categorize the character as symbol, number or alphabet*/
@@ -339,25 +266,6 @@ void refresh() {
   /*reset arrays open spot*/
   charsFound[OPEN_SPOT] = 0; 
  
-}
-
-/**
- * Purpose: Ask for user input.
- */
-long askUser(const char * when) {
-  long answer; /*user input answer*/
-  long buffer[BUFF_SIZE]; /*input buffer*/
-  /*get user input to begin program*/
-
-  do {
-
-    fprintf(stdout, "%s", when);
-    getaline( buffer, one_letter ); /*only record one letter from input*/
-    answer = *buffer; /*character from first element in buffer*/    
-
-  } while( answer != '\0' && answer != EOF );
-
-  return answer;
 }
 
 /**

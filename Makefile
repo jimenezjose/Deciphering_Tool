@@ -1,6 +1,4 @@
 default: 
-	gcc Mitnick.c -o Mitnick
-backup:
-	cp Mitnick.c .Mitnick.c
+	gcc Driver.c -o Mitnick
 clean:
 	rm Mitnick

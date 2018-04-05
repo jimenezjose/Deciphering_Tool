@@ -11,6 +11,15 @@ Description: Ciphers from Ghost in The Wires and neccessary variable/function
 #define OPEN_SPOT 257 /*index that will store next available spot in array*/
 #define OFFSET 2 /*for arrays. +2: for termination, and next open spot*/
 
+/*colorful output*/
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 /*Titles and Ciphers*/
 const char TITLE_CH1[] =
         "[Part One: The Making of a Hacker]\nONE: Rough Start\n";
@@ -26,7 +35,7 @@ const char * TITLE[] = { TITLE_CH1, TITLE_CH2 };
 const char * CIPHER[] = { CHAPTER_1, CHAPTER_2 };
 
 /**
- * Purpose: Create a line in the output
+ * Purpose: Create a line in the output for formatting sections
  */
 void line() {
   fprintf(stdout, "------------------------------------------------------\n");

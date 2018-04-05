@@ -1,7 +1,28 @@
 #include <stdio.h>
+#define BUFF_SIZE 1024
 
+long askUser(const char *, unsigned long);
 long * getaline(long *, unsigned long);
 void clrbuff(long);
+
+/**
+ * Purpose: Ask for user input.
+ */
+long askUser(const char * prompt, unsigned long input_size) {
+  long answer; /*user input answer*/
+  long buffer[BUFF_SIZE]; /*input buffer*/
+  /*get user input to begin program*/
+
+  do {
+
+    fprintf(stdout, "%s", prompt);
+    getaline( buffer, input_size ); /*only record one letter from input*/
+    answer = *buffer; /*character from first element in buffer*/
+
+  } while( answer != '\0' && answer != EOF );
+
+  return answer;
+}
 
 /**
  * Function Name: getaline
@@ -51,3 +72,4 @@ void clrbuff(long character) {
   }
 
 }
+
