@@ -145,13 +145,6 @@ long shiftCipher( long shift, const char * cipher ) {
 
 }
 
-/**
- * Function Name: proposeCeasar
- * Pupose: Find isolated characters, or use most frequent char
- *  	   to shift the cipher appropriately.
- * Return: the possible character in cipher that is an a or I.
- *  	   otherwise return 0.
- */
 /***************************************************************************
 % Routine Name : proposeCeasar
 % File :         Mitnick.c
@@ -206,12 +199,6 @@ long proposeCeasar( long cipher_index, const char * cipher ) {
   return 0;
 }
 
-/**
- * Purpose: function that categorizes the char passed as a number, alphabet char
- *          or a symbol
- *
- * Return:  if character is a number of
- */
 /***************************************************************************
 % Routine Name : categorizeChar
 % File :         Mitnick.c
@@ -286,9 +273,6 @@ void refresh() {
  
 }
 
-/**
- * Puspose: boolean function that checks of character is a space
- */
 /***************************************************************************
 % Routine Name : isSpace
 % File :         Mitnick.c
