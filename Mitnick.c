@@ -24,15 +24,17 @@ Description: Crack the ciphers on every chapter in the book,
 unsigned long frequency[MAXCHARS] = { 0 }; /*Record frequency of chars*/
 long charsFound[MAXCHARS + OFFSET];/*list of chars found in cipher*/
 
-/**
- * Function Name: analyzeChars
- * 
- * Purpose: analyze the number of characters in a char array
- * 
- * Parameters: cipher: pointer to the char array of interest
- * 
- * Return: 	number of characters
- */
+
+/***************************************************************************
+% Routine Name : analyzeChars
+% File :         Mitnick.c
+% Parameters:    cipher:     current cipher in evaluation
+%                numOfChars: number of character cipher contains
+%		 numOfWords: number of words cipher contains
+% Description :  Main function in Mitnick.c that controls the structure of 
+%		 anylzing the current cipher
+% Returns :      Nothing
+***************************************************************************/
 void analyzeChars(const char * cipher, long * numOfChars, long * numOfWords) {
   long index = 0; /*index of character array passed*/
   long currentChar = cipher[index]; /*current character of evaluation*/ 
@@ -51,9 +53,8 @@ void analyzeChars(const char * cipher, long * numOfChars, long * numOfWords) {
       numOfSpaces++;
     }
 
-
-    /*take note of a new character. (0 frequenct of char)*/
     if( !frequency[currentChar] ) {
+      /*take note of a new character. (0 frequenct of char)*/
       open_spot = charsFound[OPEN_SPOT];
       charsFound[open_spot] = currentChar;
       /*update open spot in chars found*/
@@ -64,23 +65,19 @@ void analyzeChars(const char * cipher, long * numOfChars, long * numOfWords) {
 
     if( shift ) {
       /*possible crack*/
-     
       /*"I" shift*/ 
       shift = ((long)'I') - shift;
       shiftCipher(shift, cipher);
       shift = shift + ((long)'I');
-      shift = ((long)'a') - shift;
-      shiftCipher(shift, cipher);
+      //shift = ((long)'a') - shift;
+      //shiftCipher(shift, cipher);
     }
 
     /*update the characters frequency*/
     frequency[currentChar]++;
-    
     /*move to next character in cipher*/
     index++; 
     currentChar = cipher[index];
-
-
   }
 
   *numOfChars = index;
@@ -88,6 +85,14 @@ void analyzeChars(const char * cipher, long * numOfChars, long * numOfWords) {
 
 }
 
+/***************************************************************************
+% Routine Name:  shiftCipher
+% File :         Mitnick.c
+% Parameters:    shift: magnitude of alphabet shift
+%                cipher: current cipher in analysis
+% Description :  Shift the given cipher, like a Ceasar Cipher
+% Returns :      Given shift
+***************************************************************************/
 long shiftCipher( long shift, const char * cipher ) {
   long currentChar; /*current character in cipher*/
   long index; /*current index of cipher array*/
@@ -147,6 +152,15 @@ long shiftCipher( long shift, const char * cipher ) {
  * Return: the possible character in cipher that is an a or I.
  *  	   otherwise return 0.
  */
+/***************************************************************************
+% Routine Name : proposeCeasar
+% File :         Mitnick.c
+% Parameters:    cipher_index: array index from cipher char array
+%                cipher: Cipher in current evaluation
+% Description :  Deduce possible Ceasar Cipher shift with isolated characters
+%		 or most freequent characters.
+% Returns :      Retrurns possible shift, otherwise 0.
+***************************************************************************/
 long proposeCeasar( long cipher_index, const char * cipher ) {
   const long CHARS_NEEDED = 3; /*3 characters needed for triplet sequence*/
   const long MIN_INDEX = 1; /*sequnce of 3 characters*/
@@ -198,6 +212,16 @@ long proposeCeasar( long cipher_index, const char * cipher ) {
  *
  * Return:  if character is a number of
  */
+/***************************************************************************
+% Routine Name : categorizeChar
+% File :         Mitnick.c
+% Parameters:    character: current character under analysis in cipher.
+%                type: output paramter, that is assigned if the character 
+%		 is an alphabetical character, a digit, or a symbol.
+% Description :  Categprizes a character into an alphabetical char, digit, or
+%		 a symbol.
+% Returns :      Nothing 
+***************************************************************************/
 void categorizeChar( char character, long * type ) {
   long isNumber = (character >= '0' && character <= '9');
   long isAlphabet = (character >= 'a' && character <= 'z') || 
@@ -215,9 +239,12 @@ void categorizeChar( char character, long * type ) {
 
 }
 
-/**
- * Purpose: print a frequency chart for characters used in current cipher
- */
+/***************************************************************************
+% Routine Name : charsfrequency
+% File :         Mitnick.c
+% Description :  Displays a character frequency chart.
+% Returns :      Nothing
+***************************************************************************/
 void charsFrequency() {
   const long SPACE = ' '; /*space character*/
   long character; /*refers to current character of analysis*/
@@ -236,12 +263,17 @@ void charsFrequency() {
 
 }
 
-/**
- * Purpose: reassign the content of charsFound to 0.
- */
+/***************************************************************************
+% Routine Name : refresh
+% File :         Mitnick.c
+% Description :  cleans the array that lists out the characters the were found 
+%		 in the last cipher. (Global variable: charsFound) 
+% Returns :      Nothing
+***************************************************************************/
 void refresh() {
   long index; /*coincides with index of an array*/
   unsigned long size; /*size of charsFound array*/
+
   size = sizeof(charsFound) / sizeof(charsFound[0]);
  
   /*default values of charsFound will be -1. no ascii is negative*/
@@ -257,6 +289,13 @@ void refresh() {
 /**
  * Puspose: boolean function that checks of character is a space
  */
+/***************************************************************************
+% Routine Name : isSpace
+% File :         Mitnick.c
+% Parameters:    character: current character in analysis
+% Description :  Checks if the current character is a space
+% Returns :      1 if character is a space, 0 otherwise.
+***************************************************************************/
 long isSpace( char character ) {
   if( character == ' ' ) {
     return 1;
