@@ -1,14 +1,23 @@
+/**************************************************************************** 
+Jose Jimenez                                            April 27, 2018  
+            
+File Name:   Userinput.c
+ 
+Description: Handles user input.
+****************************************************************************/
 #include <stdio.h>
-#define BUFF_SIZE 1024
+#include "UserInput.h"
 
-long askUser(const char *, unsigned long);
-long * getaline(long *, unsigned long);
-void clrbuff(long);
-
-/**
- * Purpose: Ask for user input.
- */
-long askUser(const char * prompt, unsigned long input_size) {
+/***************************************************************************
+% Routine Name : askUser
+% File :         UserInput.c
+% Parameters:    prompt:     message to inform user
+%		 max_input: max number of characters expected
+% Description :  prompts user with passed "prompt" message and reads in 
+%	 	 "input_size" characters
+% Returns :      returns response of user.
+***************************************************************************/
+long askUser(const char * prompt, unsigned long max_input) {
   long answer; /*user input answer*/
   long buffer[BUFF_SIZE]; /*input buffer*/
   /*get user input to begin program*/
@@ -16,7 +25,7 @@ long askUser(const char * prompt, unsigned long input_size) {
   do {
 
     fprintf(stdout, "%s", prompt);
-    getaline( buffer, input_size ); /*only record one letter from input*/
+    getaline( buffer, max_input ); /*only record one letter from input*/
     answer = *buffer; /*character from first element in buffer*/
 
   } while( answer != '\0' && answer != EOF );
@@ -31,6 +40,14 @@ long askUser(const char * prompt, unsigned long input_size) {
  *		       of ASCII values read from user input.
  * Return: altered input paramter, buffer.
  */
+/***************************************************************************
+% Routine Name : getaline
+% File :         Mitnick.c
+% Parameters:    buffer: array to store user input.
+% 		 maxlength: expected length of input
+% Description :  gets a line of input from user.
+% Returns :      pointer to the buffer passed
+***************************************************************************/
 long * getaline( long * buffer, unsigned long maxlength ) {
   long index; /*index of buffer array*/
   long character; /*character input from stdin*/
@@ -41,14 +58,12 @@ long * getaline( long * buffer, unsigned long maxlength ) {
   while( character != '\n' && character != EOF) {
 
     if( index < maxlength ) {
-
       buffer[index] = character;
       character = fgetc(stdin);
       index++;  
-
     }
     else {
-    
+      /*flush characters in stdin buffer after maxlength*/
       clrbuff(character);  
       break;
     }
@@ -60,11 +75,13 @@ long * getaline( long * buffer, unsigned long maxlength ) {
   return buffer;
 } 
 
-/**
- * Function Name: clrbuff
- * Purpose: Clear the stdin buffer
- * Parameters: character: stdin character
- */
+/***************************************************************************
+% Routine Name : clrbuff
+% File :         Mitnick.c
+% Parameters:    character: last character extracted from stdin.
+% Description :  Clears essentially the garbage character in the stdin buffer
+% Returns :      Nothing
+***************************************************************************/
 void clrbuff(long character) {
   /*flush stdin buffer*/
   while( character != '\n' ) {
