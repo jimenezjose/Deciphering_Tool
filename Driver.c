@@ -1,3 +1,12 @@
+/**************************************************************************** 
+                                                        Jose Jimenez
+                                                        February 8, 2018 
+
+File Name:   mitnick.c
+ 
+Description: Crack the ciphers on every chapter in the book, 
+             Ghost in the Wires by Kevin Mitnick. 
+****************************************************************************/
 #include <stdio.h>
 #include "Ciphers.h"
 #include "UserInput.c"
@@ -5,8 +14,8 @@
 
 #define ENTER 1
 
-const char * CONTINUE = "Press Enter to Continue: ";
-const char * BEGIN = "Press Enter to Begin: ";
+const char * CONTINUE = "Press <Enter> to Continue: ";
+const char * BEGIN = "Press <Enter> to Begin: ";
 
 
 int main() {
@@ -31,6 +40,7 @@ int main() {
   }
 
   size = sizeof(CIPHER) / sizeof(CIPHER[0]);
+
   /*print data for ciphers*/
   for( chapter = 0; chapter < size; chapter++ ) {
 
@@ -49,7 +59,6 @@ int main() {
     if ( askUser(CONTINUE, ENTER) == EOF ) {
       break;
     }
-
 
   }
 
