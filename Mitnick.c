@@ -19,19 +19,7 @@ Description: Crack the ciphers on every chapter in the book,
 // http://letterfrequency.org/. This way we can optimize
 // the number of trials needed in a possible brute force attack.
 
-/*is_[...] 3 states of a character */
-#define IS_SYMBOL 0
-#define IS_ALPHABET  1
-#define IS_NUMBER 2
-
-/*function prototype declarations*/
-void refresh();
-long isSpace(char);
-void charsFrequency();
-void analyzeChars(const char*, long*, long*);
-void categorizeChar(char, long*);
-long proposeCeasar(long, const char * );
-long shiftCipher( long, const char * );
+#include "Mitnick.h"
 
 unsigned long frequency[MAXCHARS] = { 0 }; /*Record frequency of chars*/
 long charsFound[MAXCHARS + OFFSET];/*list of chars found in cipher*/
@@ -180,6 +168,7 @@ long proposeCeasar( long cipher_index, const char * cipher ) {
   }
 
   firstIndex = cipher_index - 1;
+
   /*retrieve triplet sequence*/
   for( count = 0; count < CHARS_NEEDED; count++ ) {
     triplet[count] = cipher[firstIndex + count];
@@ -190,13 +179,12 @@ long proposeCeasar( long cipher_index, const char * cipher ) {
     return 0;
   }
 
-  /*possibly search for punctuations??TODO*/
   if( triplet[FIRST] == ' ' && triplet[LAST] == ' ' ) {
     /*middle character is surrounded by spaces!*/
     /*middle character is possible an I or a*/
-    
- //   fprintf(stderr, "shifted B to I: %c, %c", (char) triplet[MIDDLE], 
- //(char)((triplet[MIDDLE] + ('I' - triplet[MIDDLE] )) ) ); 
+
+    //fprintf(stderr, "shifted B to I: %c, %c", (char) triplet[MIDDLE], 
+    //(char)((triplet[MIDDLE] + ('I' - triplet[MIDDLE] )) ) ); 
 
     return triplet[MIDDLE];
   }
@@ -211,11 +199,9 @@ long proposeCeasar( long cipher_index, const char * cipher ) {
  * Return:  if character is a number of
  */
 void categorizeChar( char character, long * type ) {
+  long isNumber = (character >= '0' && character <= '9');
   long isAlphabet = (character >= 'a' && character <= 'z') || 
                                         (character >= 'A' && character <= 'Z') ;
-
-  long isNumber = (character >= '0' && character <= '9');
-
   /*define the type*/
   if( isAlphabet ) {
     *type = IS_ALPHABET;
