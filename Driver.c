@@ -1,11 +1,10 @@
 /**************************************************************************** 
                                                         Jose Jimenez
-                                                        February 8, 2018 
+                                                        April 27, 2018 
 
-File Name:   mitnick.c
+File Name:   Driver.c
  
-Description: Crack the ciphers on every chapter in the book, 
-             Ghost in the Wires by Kevin Mitnick. 
+Description: Manage user interface with deciphering tool.
 ****************************************************************************/
 #include <stdio.h>
 #include "Ciphers.h"
@@ -17,7 +16,12 @@ Description: Crack the ciphers on every chapter in the book,
 const char * CONTINUE = "Press <Enter> to Continue: ";
 const char * BEGIN = "Press <Enter> to Begin: ";
 
-
+/***************************************************************************
+% Routine Name : main
+% File :         Driver.c
+% Description:   Run program interface
+% Returns :      0 for no errors
+***************************************************************************/
 int main() {
   long numOfChars = 0; /*number of character in cipher*/
   long numOfWords = 0; /*number of words in cipher*/
@@ -63,5 +67,5 @@ int main() {
   }
 
   printf("\nDone.\n");
-
+  return 0;
 }
