@@ -10,3 +10,7 @@ on identifying reccurring patterns characters in the cipher.
 
 Assumming that the project is downloaded on your home directory. 
 On your terminal change to the Deciphering_Tool directory ("cd ~/Deciphering_Tool") and enter the command "make". "make"  executes the first target in the makefile if all dependencies are up to date. 
+
+## How to Run the Program
+
+After you have successfully compiled, a file named "Decipher" will be created (this is the executable file). To run the program, enter the command "./Decipher".  
