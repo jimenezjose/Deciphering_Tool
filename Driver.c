@@ -11,9 +11,6 @@ Description: Manage user interface with deciphering tool.
 #include "UserInput.h"
 #include "Mitnick.h"
 
-//#include "UserInput.c"
-//#include "Mitnick.c"
-
 #define ENTER 1
 
 const char * CONTINUE = "Press <Enter> to Continue: ";
