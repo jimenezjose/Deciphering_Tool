@@ -9,4 +9,4 @@ on identifying reccurring patterns characters in the cipher.
 ### How to Compile
 
 Assumming that the project is downloaded on your home directory. 
-On your terminal change to the Deciphering_Tool directory ("cd ~/Deciphering_Tool") and enter the command "make" which executes the first target in the makefile if all dependencies are up to date. 
+On your terminal change to the Deciphering_Tool directory ("cd ~/Deciphering_Tool") and enter the command "make". "make"  executes the first target in the makefile if all dependencies are up to date. 
