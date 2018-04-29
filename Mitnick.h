@@ -5,7 +5,6 @@
 
 /*function prototype declarations*/
 void refresh();
-long askUser(const char *);
 long isSpace(char);
 void charsFrequency();
 void analyzeChars(const char*, long*, long*);

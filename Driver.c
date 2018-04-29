@@ -8,8 +8,11 @@ Description: Manage user interface with deciphering tool.
 ****************************************************************************/
 #include <stdio.h>
 #include "Ciphers.h"
-#include "UserInput.c"
-#include "Mitnick.c"
+#include "UserInput.h"
+#include "Mitnick.h"
+
+//#include "UserInput.c"
+//#include "Mitnick.c"
 
 #define ENTER 1
 

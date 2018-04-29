@@ -5,6 +5,9 @@ File Name:   Userinput.c
  
 Description: Handles user input.
 ****************************************************************************/
+#ifndef USER_INPUT_H
+#define USER_INPUT_H
+
 #include <stdio.h>
 #include "UserInput.h"
 
@@ -90,3 +93,4 @@ void clrbuff(long character) {
 
 }
 
+#endif

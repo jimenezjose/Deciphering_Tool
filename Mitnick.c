@@ -19,11 +19,12 @@ Description: Crack the ciphers on every chapter in the book,
 // http://letterfrequency.org/. This way we can optimize
 // the number of trials needed in a possible brute force attack.
 
+#include <stdio.h>
 #include "Mitnick.h"
+#include "Ciphers.h"
 
 unsigned long frequency[MAXCHARS] = { 0 }; /*Record frequency of chars*/
 long charsFound[MAXCHARS + OFFSET];/*list of chars found in cipher*/
-
 
 /***************************************************************************
 % Routine Name : analyzeChars
